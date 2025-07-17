@@ -1,0 +1,52 @@
+name: Validate JSON Schemas
+
+on:
+  push:
+    paths:
+      - '**/*.json'
+  pull_request:
+    paths:
+      - '**/*.json'
+
+jobs:
+  validate-schemas:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Install ajv-cli
+      run: npm install -g ajv-cli
+      
+    - name: Find and validate schema files
+      run: |
+        # Find all .schema.json files
+        schema_files=$(find . -name "*.schema.json" -type f)
+        
+        if [ -z "$schema_files" ]; then
+          echo "No .schema.json files found"
+          exit 0
+        fi
+        
+        echo "Found schema files:"
+        echo "$schema_files"
+        
+        # Validate each schema file
+        for file in $schema_files; do
+          echo "Validating $file..."
+          ajv compile -s "$file"
+          if [ $? -eq 0 ]; then
+            echo "✓ $file is valid"
+          else
+            echo "✗ $file is invalid"
+            exit 1
+          fi
+        done
+        
+        echo "All schema files are valid!"
