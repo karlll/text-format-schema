@@ -56,15 +56,10 @@
                 "minimum": 0
               }
             },
-            "required": ["bg", "fg", "fl"],
             "additionalProperties": true
-          },
-          "id": {
-            "type": "string",
-            "description": "Optional unique identifier for this text segment"
           }
         },
-        "required": ["txt", "st"],
+        "required": ["txt"],
         "additionalProperties": true
       }
     },
