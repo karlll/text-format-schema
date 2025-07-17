@@ -20,4 +20,21 @@ The schema defines a format for representing styled text with the following comp
 - `fg`: Foreground color as hex string (`#RRGGBB`)
 - `fl`: Integer bit flag field for text formatting
 
+#### Flag field (`fl`)
+
+16 bit unsigned integer with the following bit assignments:
+
+##### LSB
+
+| 15  | 14  | 13  | 12  | 11  | 10  |  9  |  8  |
+| :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+|  -  |  -  |  -  |  -  |  -  |  -  |  -  |  -  |
+Bit 15-8 unused
+
+##### MSB
+
+|  7  |  6  |  5  |  4  |      3       |     2     |   1    |  0   |
+| :-: | :-: | :-: | :-: | :----------: | :-------: | :----: | :--: |
+|  -  |  -  |  -  |  -  | striketrough | underline | italic | bold |
+Bit 7-4 unused
 
