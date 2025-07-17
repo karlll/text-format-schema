@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Text Format Schema",
+  "description": "General schema for expressing formatted text",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Schema version identifier",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "default": "1.0.0"
+    },
+    "meta": {
+      "type": "array",
+      "description": "Array of key-value pairs for general metadata",
+      "items": {
+        "type": "object",
+        "patternProperties": {
+          "^.*$": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "minProperties": 1,
+        "maxProperties": 1
+      }
+    },
+    "data": {
+      "type": "array",
+      "description": "Array of styled text objects",
+      "items": {
+        "type": "object",
+        "properties": {
+          "txt": {
+            "type": "string",
+            "description": "Non-empty unicode string of characters",
+            "minLength": 1
+          },
+          "st": {
+            "type": "object",
+            "description": "Styling data for the text",
+            "properties": {
+              "bg": {
+                "type": "string",
+                "description": "Background color as hex string",
+                "pattern": "^#[0-9a-fA-F]{6}$"
+              },
+              "fg": {
+                "type": "string",
+                "description": "Foreground color as hex string",
+                "pattern": "^#[0-9a-fA-F]{6}$"
+              },
+              "fl": {
+                "type": "integer",
+                "description": "Integer bit flag field",
+                "minimum": 0
+              }
+            },
+            "required": ["bg", "fg", "fl"],
+            "additionalProperties": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Optional unique identifier for this text segment"
+          }
+        },
+        "required": ["txt", "st"],
+        "additionalProperties": true
+      }
+    },
+    "ext": {
+      "type": "object",
+      "description": "Reserved space for future extensions and custom properties",
+      "additionalProperties": true
+    }
+  },
+  "required": ["version", "meta", "data"],
+  "additionalProperties": true,
+  "if": {
+    "properties": {
+      "version": {
+        "enum": ["1.0.0"]
+      }
+    }
+  },
+  "then": {
+    "description": "Version 1.0.0 specific validations"
+  }
+}
