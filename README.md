@@ -40,3 +40,6 @@ Bit 15-8 unused
 
 Bit 7-4 unused
 
+## Utils
+
+See `utils/pygments/README.md` for a Python utility that formats code using Pygments and outputs it in this JSON format.

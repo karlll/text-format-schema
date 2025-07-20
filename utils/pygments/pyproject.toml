@@ -1,0 +1,10 @@
+[project]
+name = "json-formatter"
+version = "0.0.1"
+description = "Pygments formatter for representing styled and formatted text in JSON format"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pygments>=2.19.2",
+]
+
